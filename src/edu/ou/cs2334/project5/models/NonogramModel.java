@@ -165,6 +165,9 @@ public class NonogramModel {
 		if (state == null || isSolved() == true) {
 			return false;
 		}
+		if (getCellState(rowIdx, colIdx) == state) {
+			return false;
+		}
 		cellStates[rowIdx][colIdx] = state;
 		return true;
 	}
