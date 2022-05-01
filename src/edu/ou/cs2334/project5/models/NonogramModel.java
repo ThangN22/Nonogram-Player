@@ -49,13 +49,75 @@ public class NonogramModel {
 		// new NonogramModel => this
 		this(new File(filename));
 	}
-	
+
 	public void resetCells() {
 		for (int rowIdx = 0; rowIdx < getNumRows(); ++rowIdx) {
-			for(int colIdx = 0; colIdx < getNumCols(); ++colIdx) {
-			setCellState(rowIdx, colIdx, CellState.EMPTY);
+			for (int colIdx = 0; colIdx < getNumCols(); ++colIdx) {
+				setCellState(rowIdx, colIdx, CellState.EMPTY);
 			}
 		}
+	}
+
+	public static List<Integer> project(boolean[] cells) {
+
+		List<Integer> project = new ArrayList<Integer>();
+		// This for loop adds true values
+		int temp = 0;
+		for (int i = 0; i < cells.length; ++i) {
+			if (i == cells.length - 1) {
+				if (cells[i] == true) {
+					++temp;
+					project.add(temp);
+				} else if (temp > 0) {
+					project.add(temp);
+				}
+
+				break;
+			}
+
+			if (cells[i] == true) {
+				++temp;
+			} else if (cells[i] == false) {
+				if (temp > 0) {
+					project.add(temp);
+					temp = 0;
+				}
+			}
+		}
+		// If temp is empty, the size is zero, then the ArrayList will be returned as
+		// one zero
+		if (project.size() == 0 && temp == 0) {
+			project.add(0);
+		}
+
+		return project;
+	}
+
+	public int[] projectCellStatesRow(int rowIdx) {
+		boolean[] project = new boolean[getNumCols()];
+		for (int idx = 0; idx < getNumCols(); ++idx) {
+			project[idx] = getCellStateAsBoolean(rowIdx, idx);
+		}
+		List<Integer> intL = project(project);
+		int[] intA = new int[intL.size()];
+		for (int i = 0; i < intL.size(); ++i) {
+			intA[i] = intL.get(i);
+		}
+		return intA;
+	}
+
+	public int[] projectCellStatesCol(int colIdx) {
+		boolean[] project = new boolean[getNumRows()];
+		for (int idx = 0; idx < getNumRows(); ++idx) {
+			project[idx] = getCellStateAsBoolean(idx, colIdx);
+		}
+		List<Integer> intL = project(project);
+		int[] intA = new int[intL.size()];
+		for (int i = 0; i < intL.size(); ++i) {
+			intA[i] = intL.get(i);
+		}
+		return intA;
+
 	}
 
 	// TODO: Add more TODOs
@@ -82,6 +144,7 @@ public class NonogramModel {
 
 	/**
 	 * Return the state of the cell with the given row and column indices
+	 * 
 	 * @param rowIdx row index
 	 * @param colIdx column index
 	 * @return CellState
@@ -90,9 +153,14 @@ public class NonogramModel {
 		CellState copy = cellStates[rowIdx][colIdx];
 		return copy;
 	}
-	
-	/* Setters*/ 
-	
+
+	public boolean getCellStateAsBoolean(int rowIdx, int colIdx) {
+		CellState copy = getCellState(rowIdx, colIdx);
+		return CellState.toBoolean(copy);
+	}
+
+	/* Setters */
+
 	public boolean setCellState(int rowIdx, int colIdx, CellState state) {
 		if (state == null || isSolved() == true) {
 			return false;
@@ -102,20 +170,26 @@ public class NonogramModel {
 	}
 
 	public boolean isSolved() {
-		if (isRowSolved() == true || isColSolved() == true) {
-			return true;
+		for (int i = 0; i < getNumRows(); ++i) {
+			if (isRowSolved(i) == false) {
+				return false;
+			}
+
 		}
-		return false;
+		for(int j = 0; j < getNumCols(); ++j) {
+			if (isColSolved(j) == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 
-	public boolean isColSolved() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isColSolved(int colIdx) {
+		return Arrays.equals(projectCellStatesCol(colIdx), getColClue(colIdx));
 	}
 
-	public boolean isRowSolved() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isRowSolved(int rowIdx) {
+		return Arrays.equals(projectCellStatesRow(rowIdx), getRowClue(rowIdx));
 	}
 
 	// This is implemented for you
@@ -136,11 +210,9 @@ public class NonogramModel {
 
 	// TODO: Implement this method
 	private static int[][] deepCopy(int[][] array) {
-		// Recieved code structure from 
+		// Recieved code structure from
 		// https://stackoverflow.com/questions/1564832/how-do-i-do-a-deep-copy-of-a-2d-array-in-java
-		return Arrays.stream(array)
-				.map(int[]:: clone)
-				.toArray(int[][]::new);
+		return Arrays.stream(array).map(int[]::clone).toArray(int[][]::new);
 	}
 
 	// This method is implemented for you. You need to figure out how it is useful.
