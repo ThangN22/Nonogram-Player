@@ -19,8 +19,7 @@ public class NonogramModel {
 	private CellState[][] cellStates;
 
 	public NonogramModel(int[][] rowClues, int[][] colClues) {
-		// TODO: Implement deepCopy.
-		// This is simple, and you should not ask about this on Discord.
+		// Implement deepCopy.
 		this.rowClues = deepCopy(rowClues);
 		this.colClues = deepCopy(colClues);
 
@@ -34,9 +33,7 @@ public class NonogramModel {
 		String[] fields = header.split(DELIMITER);
 		int numRows = Integer.parseInt(fields[IDX_NUM_ROWS]);
 		int numCols = Integer.parseInt(fields[IDX_NUM_COLS]);
-
-		// TODO: Initialize cellStates.
-		// This is simple, and you should not ask about this on Discord.
+		// Initialize cellStates.
 		cellStates = initCellStates(numRows, numCols);
 		// Read in row clues.
 		int[][] rowCluesCopy = readClueLines(reader, numRows);
@@ -44,16 +41,13 @@ public class NonogramModel {
 		// Read in column clues.
 		int[][] colCluesCopy = readClueLines(reader, numCols);
 		this.colClues = deepCopy(colCluesCopy);
-		
-
 		// Close reader
 		reader.close();
 	}
 
 	public NonogramModel(String filename) throws IOException {
-		// TODO: Fix this constructor
-		// This is simple, and you should not ask about this on Discord.
-		new NonogramModel(new File(filename));
+		// new NonogramModel => this
+		this(new File(filename));
 	}
 
 	// TODO: Add more TODOs
@@ -61,12 +55,12 @@ public class NonogramModel {
 	/* Helper methods */
 
 	public int getNumRows() {
-		int copy = rowClues.length;
+		int copy = this.rowClues.length;
 		return copy;
 	}
 
 	public int getNumCols() {
-		int copy = colClues.length;
+		int copy = this.colClues.length;
 		return copy;
 	}
 
@@ -92,6 +86,27 @@ public class NonogramModel {
 	/* Setters*/ 
 	
 	public boolean setCellState(int rowIdx, int colIdx, CellState state) {
+		if (state == null || isSolved() == true) {
+			return false;
+		}
+		cellStates[rowIdx][colIdx] = state;
+		return true;
+	}
+
+	public boolean isSolved() {
+		if (isRowSolved() == true || isColSolved() == true) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isColSolved() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isRowSolved() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
