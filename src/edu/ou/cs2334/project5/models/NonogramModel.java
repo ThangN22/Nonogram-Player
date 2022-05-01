@@ -37,13 +37,14 @@ public class NonogramModel {
 
 		// TODO: Initialize cellStates.
 		// This is simple, and you should not ask about this on Discord.
-		this.cellStates = initCellStates(numRows, numCols);
-		// TODO: Read in row clues.
-		// This is simple, and you should not ask about this on Discord.
-		this.rowClues = deepCopy(rowClues);
-		// TODO: Read in column clues.
-		// This is simple, and you should not ask about this on Discord.
-		this.colClues = deepCopy(colClues);
+		cellStates = initCellStates(numRows, numCols);
+		// Read in row clues.
+		int[][] rowCluesCopy = readClueLines(reader, numRows);
+		this.rowClues = deepCopy(rowCluesCopy);
+		// Read in column clues.
+		int[][] colCluesCopy = readClueLines(reader, numCols);
+		this.colClues = deepCopy(colCluesCopy);
+		
 
 		// Close reader
 		reader.close();
