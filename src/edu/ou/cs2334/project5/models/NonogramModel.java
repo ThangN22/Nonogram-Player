@@ -17,16 +17,16 @@ public class NonogramModel {
 	private int[][] rowClues;
 	private int[][] colClues;
 	private CellState[][] cellStates;
-	
+
 	public NonogramModel(int[][] rowClues, int[][] colClues) {
-		// TODO: Implement deepCopy. 
+		// TODO: Implement deepCopy.
 		// This is simple, and you should not ask about this on Discord.
 		this.rowClues = deepCopy(rowClues);
 		this.colClues = deepCopy(colClues);
 
 		cellStates = initCellStates(getNumRows(), getNumCols());
 	}
-	
+
 	public NonogramModel(File file) throws IOException {
 		// Number of rows and columns
 		BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -37,13 +37,14 @@ public class NonogramModel {
 
 		// TODO: Initialize cellStates.
 		// This is simple, and you should not ask about this on Discord.
-		
+		this.cellStates = initCellStates(numRows, numCols);
 		// TODO: Read in row clues.
 		// This is simple, and you should not ask about this on Discord.
-		
+		this.rowClues = deepCopy(rowClues);
 		// TODO: Read in column clues.
 		// This is simple, and you should not ask about this on Discord.
-		
+		this.colClues = deepCopy(colClues);
+
 		// Close reader
 		reader.close();
 	}
@@ -53,65 +54,96 @@ public class NonogramModel {
 		// This is simple, and you should not ask about this on Discord.
 		new NonogramModel(new File(filename));
 	}
-	
+
 	// TODO: Add more TODOs
-	
+
 	/* Helper methods */
+
+	public int getNumRows() {
+		int copy = rowClues.length;
+		return copy;
+	}
+
+	public int getNumCols() {
+		int copy = colClues.length;
+		return copy;
+	}
+
+	public int[] getRowClue(int rowIdx) {
+		return rowClues[rowIdx];
+	}
+
+	public int[] getColClue(int colIdx) {
+		return colClues[colIdx];
+	}
+
+	/**
+	 * Return the state of the cell with the given row and column indices
+	 * @param rowIdx row index
+	 * @param colIdx column index
+	 * @return CellState
+	 */
+	public CellState getCellState(int rowIdx, int colIdx) {
+		CellState copy = cellStates[rowIdx][colIdx];
+		return copy;
+	}
 	
+	/* Setters*/ 
+	
+	public boolean setCellState(int rowIdx, int colIdx, CellState state) {
+		return false;
+	}
+
 	// This is implemented for you
 	private static CellState[][] initCellStates(int numRows, int numCols) {
 		// Create a 2D array to store numRows * numCols elements
 		CellState[][] cellStates = new CellState[numRows][numCols];
-		
+
 		// Set each element of the array to empty
 		for (int rowIdx = 0; rowIdx < numRows; ++rowIdx) {
 			for (int colIdx = 0; colIdx < numCols; ++colIdx) {
 				cellStates[rowIdx][colIdx] = CellState.EMPTY;
 			}
 		}
-		
+
 		// Return the result
 		return cellStates;
 	}
-	
+
 	// TODO: Implement this method
 	private static int[][] deepCopy(int[][] array) {
-		// You can do this in under 10 lines of code. If you ask the internet
-		// "how do I do a deep copy of a 2d array in Java," be sure to cite
-		// your source.
-		// Note that if we used a 1-dimensional array to store our arrays,
-		// we could simply use Arrays.copyOf directly without this helper
-		// method.
-		// Do not ask about this on Discord. You can do this on your own. :)
-		return null;
+		// Recieved code structure from 
+		// https://stackoverflow.com/questions/1564832/how-do-i-do-a-deep-copy-of-a-2d-array-in-java
+		return Arrays.stream(array)
+				.map(int[]:: clone)
+				.toArray(int[][]::new);
 	}
-	
+
 	// This method is implemented for you. You need to figure out how it is useful.
-	private static int[][] readClueLines(BufferedReader reader, int numLines)
-			throws IOException {
+	private static int[][] readClueLines(BufferedReader reader, int numLines) throws IOException {
 		// Create a new 2D array to store the clues
 		int[][] clueLines = new int[numLines][];
-		
+
 		// Read in clues line-by-line and add them to the array
 		for (int lineNum = 0; lineNum < numLines; ++lineNum) {
 			// Read in a line
 			String line = reader.readLine();
-			
+
 			// Split the line according to the delimiter character
 			String[] tokens = line.split(DELIMITER);
-			
+
 			// Create new int array to store the clues in
 			int[] clues = new int[tokens.length];
 			for (int idx = 0; idx < tokens.length; ++idx) {
 				clues[idx] = Integer.parseInt(tokens[idx]);
 			}
-			
+
 			// Store the processed clues in the resulting 2D array
 			clueLines[lineNum] = clues;
 		}
-		
+
 		// Return the result
 		return clueLines;
 	}
-	
+
 }
