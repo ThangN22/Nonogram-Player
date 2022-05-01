@@ -49,6 +49,14 @@ public class NonogramModel {
 		// new NonogramModel => this
 		this(new File(filename));
 	}
+	
+	public void resetCells() {
+		for (int rowIdx = 0; rowIdx < getNumRows(); ++rowIdx) {
+			for(int colIdx = 0; colIdx < getNumCols(); ++colIdx) {
+			setCellState(rowIdx, colIdx, CellState.EMPTY);
+			}
+		}
+	}
 
 	// TODO: Add more TODOs
 
