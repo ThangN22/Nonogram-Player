@@ -73,11 +73,11 @@ public class NonogramModel {
 	}
 
 	public int[] getRowClue(int rowIdx) {
-		return rowClues[rowIdx];
+		return Arrays.copyOf(rowClues[rowIdx], rowClues[rowIdx].length);
 	}
 
 	public int[] getColClue(int colIdx) {
-		return colClues[colIdx];
+		return Arrays.copyOf(colClues[colIdx], colClues[colIdx].length);
 	}
 
 	/**
