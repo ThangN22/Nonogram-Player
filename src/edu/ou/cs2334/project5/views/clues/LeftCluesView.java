@@ -30,4 +30,10 @@ public class LeftCluesView extends AbstractGroupCluesView {
 		// solution on Discord.
 	}
 
+	@Override
+	protected AbstractOrientedClueView makeClue(int[] clue, int cellLength, int numClueUnits) {
+		// TODO Auto-generated method stub
+		return new HorizontalClueView(clue, cellLength, numClueUnits);
+	}
+
 }

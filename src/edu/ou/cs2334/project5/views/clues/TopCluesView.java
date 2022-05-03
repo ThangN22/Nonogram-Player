@@ -30,4 +30,10 @@ public class TopCluesView extends AbstractGroupCluesView {
 		// solution on Discord.
 	}
 
+	@Override
+	protected AbstractOrientedClueView makeClue(int[] clue, int cellLength, int numClueUnits) {
+		// TODO Auto-generated method stub
+		return new VerticalClueView(clue, cellLength, numClueUnits);
+	}
+
 }
