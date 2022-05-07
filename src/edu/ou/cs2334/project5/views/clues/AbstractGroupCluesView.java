@@ -9,7 +9,7 @@ import javafx.scene.layout.FlowPane;
 /**
  * Represents a grouping of clues.
  * 
- * @author It's you
+ * @author Thang Nguyen
  * @version 0.1
  */
 public abstract class AbstractGroupCluesView extends FlowPane {

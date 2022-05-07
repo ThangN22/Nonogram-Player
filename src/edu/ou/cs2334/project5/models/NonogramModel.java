@@ -45,8 +45,8 @@ public class NonogramModel {
 	 * Initialize the object using the row and column clues in the given file. Set
 	 * all of the cell states to EMPTY.
 	 * 
-	 * @param file
-	 * @throws IOException
+	 * @param file file
+	 * @throws IOException input output exception
 	 */
 	public NonogramModel(File file) throws IOException {
 		// Number of rows and columns
@@ -71,8 +71,8 @@ public class NonogramModel {
 	 * Initialize the object using the row and column clues in the text file with
 	 * the given name.
 	 * 
-	 * @param filename
-	 * @throws IOException
+	 * @param filename name of file
+	 * @throws IOException input output exception
 	 */
 	public NonogramModel(String filename) throws IOException {
 		// new NonogramModel => this
@@ -135,7 +135,7 @@ public class NonogramModel {
 	 * Return the projection of the cellStates row with the given index.
 	 * 
 	 * @param rowIdx row index
-	 * @return int array
+	 * @return int[] int array of projections
 	 */
 	public int[] projectCellStatesRow(int rowIdx) {
 		boolean[] project = new boolean[getNumCols()];
@@ -153,8 +153,8 @@ public class NonogramModel {
 	/**
 	 * Return the projection of the cellStates column with the given index.
 	 * 
-	 * @param colIdx
-	 * @return
+	 * @param colIdx column index
+	 * @return int[] array of projections
 	 */
 	public int[] projectCellStatesCol(int colIdx) {
 		boolean[] project = new boolean[getNumRows()];
@@ -169,8 +169,6 @@ public class NonogramModel {
 		return intA;
 
 	}
-
-	// TODO: Add more TODOs
 
 	/* Helper methods */
 	/**
@@ -197,7 +195,7 @@ public class NonogramModel {
 	 * Return a deep copy of the row clue
 	 * 
 	 * @param rowIdx row index
-	 * @return int array of row clue
+	 * @return int[] int array of row clue
 	 */
 	public int[] getRowClue(int rowIdx) { // Maybe implement deep copy
 		return Arrays.copyOf(rowClues[rowIdx], rowClues[rowIdx].length);
@@ -207,16 +205,22 @@ public class NonogramModel {
 	 * Return a deep copy of the column clue
 	 * 
 	 * @param colIdx column index
-	 * @return int array of column clue
+	 * @return int[] array of column clue
 	 */
 	public int[] getColClue(int colIdx) { // Maybe implement deep copy
 		return Arrays.copyOf(colClues[colIdx], colClues[colIdx].length);
 	}
-	
+	/** 
+	 * get a deep copy of row clues
+	 * @return 2d array of row clues
+	 */
 	public int[][] getRowClues() {
 		return deepCopy(rowClues);
 	}
-	
+	/** 
+	 * get a deep copy of column clues
+	 * @return 2d array of column clues
+	 */
 	public int[][] getColClues() { 
 		return deepCopy(colClues);
 	}
@@ -227,7 +231,7 @@ public class NonogramModel {
 	 * 
 	 * @param rowIdx row index
 	 * @param colIdx column index
-	 * @return CellState
+	 * @return CellState cell state
 	 */
 	public CellState getCellState(int rowIdx, int colIdx) {
 		CellState copy = cellStates[rowIdx][colIdx];
@@ -238,9 +242,9 @@ public class NonogramModel {
 	 * Return the boolean state of the cell with the given row and column indices. A
 	 * FILLED cell returns true. Otherwise, return false.
 	 * 
-	 * @param rowIdx
-	 * @param colIdx
-	 * @return
+	 * @param rowIdx row index
+	 * @param colIdx column index
+	 * @return boolean cell state as boolean
 	 */
 	public boolean getCellStateAsBoolean(int rowIdx, int colIdx) {
 		CellState copy = getCellState(rowIdx, colIdx);
@@ -256,7 +260,7 @@ public class NonogramModel {
 	 * @param rowIdx row index
 	 * @param colIdx column index
 	 * @param state  CellState
-	 * @return boolean
+	 * @return boolean cell state
 	 */
 	public boolean setCellState(int rowIdx, int colIdx, CellState state) {
 		if (state == null || isSolved() == true) {
@@ -294,7 +298,7 @@ public class NonogramModel {
 	 * if the projected cellStates column matches the column's clue. Otherwise,
 	 * return false.
 	 * 
-	 * @param colIdx
+	 * @param colIdx column index
 	 * @return boolean for solved
 	 */
 	public boolean isColSolved(int colIdx) { // One-Liner From Tommy Pham
@@ -305,7 +309,7 @@ public class NonogramModel {
 	 * Return true if the row with the given index is solved. A row is solved if the
 	 * projected cellStates matches the row's clue. Otherwise, return false.
 	 * 
-	 * @param rowIdx
+	 * @param rowIdx row index
 	 * @return boolean for solved
 	 */
 	public boolean isRowSolved(int rowIdx) { // One-Liner From Tommy Pham

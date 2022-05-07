@@ -16,11 +16,16 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	private int IDX_CELL_SIZE = 0;
 	private int DEFAULT_CELL_SIZE = 30;
-
+	/** 
+	 * Launch arguments
+	 * @param args arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	/** 
+	 * Create scene with pane, the pane being of Nonogram Presenter type. Set the scene in primary stage and show.
+	 */
 	public void start(Stage primaryStage) throws Exception {
 		// The graphical components of a JavaFX application are stored in
 		// scenes. One such component is a pane. The next two lines create a

@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 /**
  * Represents an individual clue cell.
  * 
- * @author It's you
+ * @author Thang Nguyen
  * @author 0.1
  */
 public class ClueItemView extends StackPane {

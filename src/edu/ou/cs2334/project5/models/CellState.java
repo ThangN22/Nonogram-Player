@@ -7,8 +7,15 @@ package edu.ou.cs2334.project5.models;
  *
  */
 public enum CellState {
-	EMPTY, FILLED, MARKED;
-
+	/** 
+	 * Empty enum
+	 */
+	EMPTY,/** Filled enum */FILLED, /** Marked enum*/MARKED;
+	/** 
+	 * return a cell state in boolean form
+	 * @param state cell state
+	 * @return boolean a cell state in boolean form
+	 */
 	public static boolean toBoolean(CellState state) {
 		return state.equals(FILLED) ? true : false; // either .equals() or ==
 	}

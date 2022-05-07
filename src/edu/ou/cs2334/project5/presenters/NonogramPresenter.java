@@ -31,10 +31,10 @@ public class NonogramPresenter implements Openable {
 	private int cellLength;
 	private static String DEFAULT_PUZZLE = "puzzles/space-invader.txt";
 
-	/**
-	 * Constructor
-	 * 
-	 * @param cellLength length of cell
+	/** 
+	 * NP constructor. initializes NonogramView, NonogramModel, and initializes presenter.
+	 * @param cellLength cell length
+	 * @throws IOException input output exception
 	 */
 	public NonogramPresenter(int cellLength) throws IOException {
 		// Construct a new NonogramModel instance using the DEFAULT_PUZZLE and assign it
@@ -152,16 +152,25 @@ public class NonogramPresenter implements Openable {
 		
 		
 		if (model.isSolved()) {
+			
 			processVictory();
 		}
+		
+		
 
 	}
 
 	private void processVictory() { // guess
 		// Remove marks from the cell view
 		removeCellViewMarks();
+		
+		
+		
+		
 		// Use the view to show a victory alert
 		view.showVictoryAlert();
+		
+		
 	}
 
 	private void removeCellViewMarks() {
@@ -173,6 +182,8 @@ public class NonogramPresenter implements Openable {
 				}
 			}
 		}
+		
+		
 	}
 
 	private void configureButtons() { // guess
@@ -199,11 +210,17 @@ public class NonogramPresenter implements Openable {
 		model.resetCells();
 		synchronize();
 	}
-
+	/** 
+	 * Return pane
+	 * @return NonogramView, since it extends pane
+	 */
 	public Pane getPane() {
 		return view;
 	}
-
+	/** 
+	 * Return window
+	 * @return window, which you get from a pane's scene.
+	 */
 	public Window getWindow() { // Window => Scene => Pane
 		try {
 		return view.getScene().getWindow();
@@ -214,6 +231,9 @@ public class NonogramPresenter implements Openable {
 	}
 
 	@Override
+	/** 
+	 * Open a file, and call the constructor as well as initialize presenter
+	 */
 	public void open(File file) throws IOException {
 		// TODO Auto-generated method stub
 		model = new NonogramModel(file);

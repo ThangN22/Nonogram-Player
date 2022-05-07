@@ -19,9 +19,9 @@ public class CellGridView extends GridPane {
 	 * the positions with the same row and column indices. Also, add the style class
 	 * given as a constant.
 	 * 
-	 * @param numRows
-	 * @param numCols
-	 * @param cellLength
+	 * @param numRows number of rows
+	 * @param numCols number of columns
+	 * @param cellLength cell length
 	 */
 	public CellGridView(int numRows, int numCols, int cellLength) {
 		initCells(numRows, numCols, cellLength);
@@ -35,9 +35,9 @@ public class CellGridView extends GridPane {
 	 * work with. This is just a suggestion though, as you can do something similar
 	 * to yourProject 4 code instead to accomplish the same result.
 	 * 
-	 * @param numRows
-	 * @param numCols
-	 * @param cellLength
+	 * @param numRows number of rows
+	 * @param numCols number of columns
+	 * @param cellLength cell length
 	 */
 	public void initCells(int numRows, int numCols, int cellLength) {
 		// Clear children 
@@ -65,9 +65,9 @@ public class CellGridView extends GridPane {
 	/**
 	 * Get the CellView using the given indices.
 	 * 
-	 * @param rowIdx
-	 * @param colIdx
-	 * @return
+	 * @param rowIdx row index
+	 * @param colIdx column index
+	 * @return CellView cell view
 	 */
 	public CellView getCellView(int rowIdx, int colIdx) {
 		return cellViews[rowIdx][colIdx];
@@ -76,9 +76,9 @@ public class CellGridView extends GridPane {
 	/**
 	 * Update the state of the CellView with the given indices.
 	 * 
-	 * @param rowIdx
-	 * @param colIdx
-	 * @param state
+	 * @param rowIdx row index
+	 * @param colIdx column index
+	 * @param state cell state
 	 */
 	public void setCellState(int rowIdx, int colIdx, CellState state) {
 		cellViews[rowIdx][colIdx].setState(state);
