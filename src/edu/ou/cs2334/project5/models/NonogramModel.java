@@ -194,24 +194,33 @@ public class NonogramModel {
 	}
 
 	/**
-	 * Return a deep copy of the row clues
+	 * Return a deep copy of the row clue
 	 * 
 	 * @param rowIdx row index
-	 * @return int array of row clues
+	 * @return int array of row clue
 	 */
-	public int[] getRowClue(int rowIdx) {
+	public int[] getRowClue(int rowIdx) { // Maybe implement deep copy
 		return Arrays.copyOf(rowClues[rowIdx], rowClues[rowIdx].length);
 	}
 
 	/**
-	 * Return a deep copy of the column clues
+	 * Return a deep copy of the column clue
 	 * 
 	 * @param colIdx column index
-	 * @return int array of column clues
+	 * @return int array of column clue
 	 */
-	public int[] getColClue(int colIdx) {
+	public int[] getColClue(int colIdx) { // Maybe implement deep copy
 		return Arrays.copyOf(colClues[colIdx], colClues[colIdx].length);
 	}
+	
+	public int[][] getRowClues() {
+		return deepCopy(rowClues);
+	}
+	
+	public int[][] getColClues() { 
+		return deepCopy(colClues);
+	}
+	
 
 	/**
 	 * Return the state of the cell with the given row and column indices

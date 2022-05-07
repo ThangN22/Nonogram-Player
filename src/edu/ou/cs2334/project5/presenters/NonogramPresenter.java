@@ -41,8 +41,11 @@ public class NonogramPresenter implements Openable {
 		// to the instance variable
 		model = new NonogramModel(DEFAULT_PUZZLE);
 		// Construct a new View instance and assign it to the instance variable
-		initializeView();
+		view = new NonogramView();
 		// Make sure the presenter is initialized (see initPresenter())
+		
+		// SET CELL LENGTH 
+		this.cellLength = cellLength;
 		initializePresenter();
 	}
 
@@ -53,8 +56,8 @@ public class NonogramPresenter implements Openable {
 		configureButtons();
 	}
 
-	private void initializeView() { // guess
-		// view = new NonogramView();
+	private void initializeView() { // Maybe have IO exception
+		 // Maybe get rid of this?
 		view.initialize(model.getRowClues(), model.getColClues(), cellLength); // CLUES???
 		
 		if (getWindow() != null) {
@@ -109,8 +112,23 @@ public class NonogramPresenter implements Openable {
 
 	}
 
-	private void updateCellState(int rowIdx, int colIdx, CellState state) { // guess
+	private void updateCellState(int rowIdx, int colIdx, CellState state) {
+		CellState gu = model.getCellState(rowIdx, colIdx); // Current
 		model.setCellState(rowIdx, colIdx, state);
+		
+		if (! gu.equals(model.getCellState(rowIdx, colIdx))) { // if are not equal, then changed
+			view.setCellState(rowIdx, colIdx, state);
+			view.setRowClueState(rowIdx, model.isRowSolved(rowIdx));
+			view.setColClueState(colIdx, model.isRowSolved(colIdx));
+			
+			view.setRowClueState(rowIdx, model.isRowSolved(rowIdx));
+			view.setColClueState(colIdx, model.isColSolved(colIdx));
+		} 
+		
+		if (model.isSolved()) {
+			processVictory();
+		}
+
 	}
 
 	private void synchronize() {
@@ -122,9 +140,17 @@ public class NonogramPresenter implements Openable {
 				// Add that state acquired from model onto view, completing synchronizing of
 				// this particular cell
 				view.setCellState(row, col, state);
+				
+				// Synchronize the clue views with row and column states 
+				view.setRowClueState(row, model.isRowSolved(row));
+				view.setColClueState(col, model.isColSolved(col));
 			}
 		}
 		// Synchronize the puzzle state
+		view.setPuzzleState(model.isSolved());
+		// Do it. Look at view for this
+		
+		
 		if (model.isSolved()) {
 			processVictory();
 		}
@@ -179,7 +205,12 @@ public class NonogramPresenter implements Openable {
 	}
 
 	public Window getWindow() { // Window => Scene => Pane
+		try {
 		return view.getScene().getWindow();
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
 	}
 
 	@Override

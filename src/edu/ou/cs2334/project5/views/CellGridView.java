@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
  *
  */
 public class CellGridView extends GridPane {
+	
 	private static String STYLE_CLASS = "cell-grid-view";
 	private CellView[][] cellViews;
 
@@ -39,19 +40,24 @@ public class CellGridView extends GridPane {
 	 * @param cellLength
 	 */
 	public void initCells(int numRows, int numCols, int cellLength) {
-		for (int i = 0; i < numRows; ++i) {
-			for (int j = 0; j < numCols; ++j) {
-				getCellView(i, j).getChildren().clear();
-			}
-		}
+		// Clear children 
+		getChildren().clear();
 		
 		cellViews = new CellView[numRows][numCols];
 		
-		for (int i = 0; i < numRows; ++i) {
-			for (int j = 0; j < numCols; ++j) {
+//		for (int i = 0; i < numRows; ++i) {
+//			for (int j = 0; j < numCols; ++j) {
+//				getCellView(i, j).getChildren().clear();
+//			}
+//		}
+		
+		
+		
+		for (int row = 0; row < numRows; ++row) {
+			for (int col = 0; col < numCols; ++col) {
 				
-				cellViews[i][j] = new CellView(cellLength);
-				add(cellViews[i][j], i, j); // possibly switch j & i
+				cellViews[row][col] = new CellView(cellLength);
+				add(cellViews[row][col], col, row); // add(Node child, int columnIndex, int rowIndex)
 			}
 		}
 	}

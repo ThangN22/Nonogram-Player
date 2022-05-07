@@ -9,7 +9,7 @@ package edu.ou.cs2334.project5.models;
 public enum CellState {
 	EMPTY, FILLED, MARKED;
 
-	public toBoolean(state CellState) {
-		
+	public static boolean toBoolean(CellState state) {
+		return state.equals(FILLED) ? true : false; // either .equals() or ==
 	}
 }

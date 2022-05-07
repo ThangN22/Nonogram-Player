@@ -1,6 +1,7 @@
 package edu.ou.cs2334.project5.views.clues;
 
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 
 /**
  * Represents a view containing all column clues displayed above the grid.
@@ -25,9 +26,13 @@ public class TopCluesView extends AbstractGroupCluesView {
 	public TopCluesView(int[][] colClues, int cellLength, int height) {
 		super(Orientation.HORIZONTAL, STYLE_CLASS, colClues, cellLength, height);
 		setMaxWidth(colClues.length * cellLength);
+		// setAlignment(Pos.TOP_RIGHT);
 		
 		// TODO: Possibly add something here. Do not directly discuss your
 		// solution on Discord.
+		
+		// No you don't?
+		setPrefWrapLength(Double.MAX_VALUE);
 	}
 
 	@Override

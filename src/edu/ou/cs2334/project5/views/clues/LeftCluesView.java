@@ -23,11 +23,14 @@ public class LeftCluesView extends AbstractGroupCluesView {
 	 * @param width the maximum number of numbered clues among all rows
 	 */
 	public LeftCluesView(int[][] rowClues, int cellLength, int width) {
-		super(Orientation.VERTICAL, STYLE_CLASS, rowClues, cellLength, width);
+		super(Orientation.VERTICAL, STYLE_CLASS, rowClues, cellLength, width); // vert, or horiz?
 		setMaxHeight(rowClues.length * cellLength);
 		
 		// TODO: Possibly add something here. Do not directly discuss your
 		// solution on Discord.
+		
+		// No you dont?
+		setPrefWrapLength(Double.MAX_VALUE);
 	}
 
 	@Override

@@ -36,10 +36,12 @@ public class NonogramView extends BorderPane {
 		int colCluesHeight = MaxLengthWidth(colClues);// using helper method
 		topCluesView = new TopCluesView(colClues, cellLength, colCluesHeight);
 		int rowCluesWidth = MaxLengthWidth(rowClues);// using helper method
-		leftCluesView = new LeftCluesView(rowClues, cellLength, rowCluesWidth);
+		leftCluesView = new LeftCluesView(rowClues, cellLength, rowCluesWidth); // Aligning elements in borderpane, Java FX
+		
 
 		setLeft(leftCluesView);
 		setTop(topCluesView);
+		BorderPane.setAlignment(topCluesView, Pos.CENTER_RIGHT); // THIS!
 		setCenter(cellGridView);
 		initBottomHBox();
 		setBottom(bottomHBox);
