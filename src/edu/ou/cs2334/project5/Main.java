@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 	private int IDX_CELL_SIZE = 0;
-	private int DEFAULT_CELL_SIZE = 30;
+	private int DEFAULT_CELL_SIZE = 28;
 	/** 
 	 * Launch arguments
 	 * @param args arguments
@@ -30,13 +30,15 @@ public class Main extends Application {
 		// The graphical components of a JavaFX application are stored in
 		// scenes. One such component is a pane. The next two lines create a
 		// Scene object that contains an empty Pane object.
-		int cellSize = Integer.parseInt(getParameters().getUnnamed().get(IDX_CELL_SIZE)); // get cellSize
+		
 
 		NonogramPresenter present;
 		// Make sure cellSize is an appropriate number
-		if (cellSize == 0 || getParameters().getUnnamed().isEmpty()) {
+		if (getParameters().getUnnamed().size() == 0) {
 			present = new NonogramPresenter(DEFAULT_CELL_SIZE);
 		} else {
+			
+			int cellSize = Integer.parseInt(getParameters().getUnnamed().get(IDX_CELL_SIZE)); // get cellSize
 			present = new NonogramPresenter(cellSize);
 		}
 
